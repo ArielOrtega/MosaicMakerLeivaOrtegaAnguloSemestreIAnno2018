@@ -16,14 +16,23 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -35,8 +44,8 @@ public class Paneles extends JPanel{
     public int rowQuantity, columnQuantity, rowQuantity2, columnQuantity2, //here
             getSelectedX, getSelectedY, xSelected, ySelected, 
             widthPanel=500, heightPanel=500;
-    public Image imagenes[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
-    public Image imagenesMosaico[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
+    public static BufferedImage imagenes[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
+    public static BufferedImage imagenesMosaico[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
     BufferedImage imagenPrincipal;
     File imageSource;
     
@@ -185,16 +194,24 @@ public class Paneles extends JPanel{
             
         }
 
-        @Override
+        //@Override
         public void mouseClicked(MouseEvent e) {
-            
+      
             int xOffset = 0;
             getSelectedX = (e.getX() - xOffset) / cellWidth;
             int yOffset = 0;
             getSelectedY = (e.getY() - yOffset) / cellHeight;
-            System.out.println("Cordenadas panel1\nColumn "+ getSelectedX + " Row " + getSelectedY);
-
-
+            //System.out.println("Cordenadas panel1\nColumn "+ getSelectedX + " Row " + getSelectedY);
+            
+            Clip clip;
+            try{
+                clip = AudioSystem.getClip();
+                clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/Sounds/clickSound.wav")));
+                clip.start();
+                
+            }catch(Exception ce){
+            
+            }
         }
 
         @Override
@@ -446,5 +463,63 @@ public class Paneles extends JPanel{
         } while (w != targetWidth || h != targetHeight);
 
         return ret;
+    }
+    
+    public void saveAnImage() throws IOException {
+        int cellWidth, cellHeight;
+        int type;
+        try {
+            //Convertir matriz a arreglo de imagenes
+            
+            if(rowQuantity!=0){
+                BufferedImage[] mosaicArray = new BufferedImage[rowQuantity2 * columnQuantity2];
+            int cont = 0;
+
+            for (int i = 0; i < rowQuantity2; i++) {
+                for (int j = 0; j < columnQuantity2; j++) {
+                    mosaicArray[cont] = imagenesMosaico[i][j];
+                    cont++;
+                }
+            }
+
+            type = mosaicArray[0].getType();
+            cellWidth = mosaicArray[0].getWidth();
+            cellHeight = mosaicArray[0].getHeight();
+
+            //Imagen final
+            BufferedImage finalImg = new BufferedImage(cellWidth * rowQuantity2, cellHeight * columnQuantity2, type);
+            int num = 0;
+            
+            for (int i = 0; i < rowQuantity2; i++) {
+                for (int j = 0; j < columnQuantity2; j++) {
+                    finalImg.createGraphics().drawImage(mosaicArray[num], cellWidth * i, cellHeight * j, null);
+                    num++;
+                }
+            }
+            
+            //Guardar en directorio
+            JFileChooser jFile = new JFileChooser();
+            jFile.showSaveDialog(null);
+            Path pth = jFile.getSelectedFile().toPath();
+            JOptionPane.showMessageDialog(null, pth.toString());
+            
+            //ImageDataSerializable mds= new ImageDataSerializable();
+            //mds.writeObject(pth.toString());
+            
+            JOptionPane.showMessageDialog(this, "Imaged was saved","",JOptionPane.INFORMATION_MESSAGE );
+            ImageIO.write(finalImg, "png", new File(pth.toString() + ".png"));
+            }
+
+            
+            
+            
+            
+        } catch (NullPointerException npe) {
+            //JOptionPane.showMessageDialog(null," Incomplete cells ", "", JOptionPane.WARNING_MESSAGE);
+        //} catch (IOException ioe) {
+            //JOptionPane.showMessageDialog(null, "Can't save image!", "Error", JOptionPane.ERROR_MESSAGE);
+        //}
+            
+        }
     }
 }
