@@ -41,7 +41,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class Paneles extends JPanel{
-    public int rowQuantity, columnQuantity, rowQuantity2, columnQuantity2, //here
+    public static int rowQuantity, columnQuantity, rowQuantity2, columnQuantity2, //here
             getSelectedX, getSelectedY, xSelected, ySelected, 
             widthPanel=500, heightPanel=500;
     public static BufferedImage imagenes[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
@@ -471,7 +471,7 @@ public class Paneles extends JPanel{
         try {
             //Convertir matriz a arreglo de imagenes
             
-            if(rowQuantity!=0){
+            //if(rowQuantity!=0){
                 BufferedImage[] mosaicArray = new BufferedImage[rowQuantity2 * columnQuantity2];
             int cont = 0;
 
@@ -497,6 +497,9 @@ public class Paneles extends JPanel{
                 }
             }
             
+            //}
+
+            
             //Guardar en directorio
             JFileChooser jFile = new JFileChooser();
             jFile.showSaveDialog(null);
@@ -508,9 +511,6 @@ public class Paneles extends JPanel{
             
             JOptionPane.showMessageDialog(this, "Imaged was saved","",JOptionPane.INFORMATION_MESSAGE );
             ImageIO.write(finalImg, "png", new File(pth.toString() + ".png"));
-            }
-
-            
             
             
             
