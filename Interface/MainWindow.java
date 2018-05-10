@@ -30,9 +30,12 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    boolean flag = true;
+    
     public MainWindow() {
         initComponents();
         getContentPane().setBackground(new Color(180, 180, 180));
+
     }
 
     /**
@@ -52,6 +55,7 @@ public class MainWindow extends javax.swing.JFrame {
         tfd_blocksNew = new javax.swing.JTextField();
         lbl_blocks2 = new javax.swing.JLabel();
         lbl_title = new javax.swing.JLabel();
+        JPanelMosaic = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -65,7 +69,7 @@ public class MainWindow extends javax.swing.JFrame {
         JPanelSource.setLayout(JPanelSourceLayout);
         JPanelSourceLayout.setHorizontalGroup(
             JPanelSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1027, Short.MAX_VALUE)
+            .addGap(0, 559, Short.MAX_VALUE)
         );
         JPanelSourceLayout.setVerticalGroup(
             JPanelSourceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,6 +101,19 @@ public class MainWindow extends javax.swing.JFrame {
         lbl_title.setForeground(new java.awt.Color(102, 102, 255));
         lbl_title.setText("Mosaic Maker");
 
+        JPanelMosaic.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout JPanelMosaicLayout = new javax.swing.GroupLayout(JPanelMosaic);
+        JPanelMosaic.setLayout(JPanelMosaicLayout);
+        JPanelMosaicLayout.setHorizontalGroup(
+            JPanelMosaicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+        JPanelMosaicLayout.setVerticalGroup(
+            JPanelMosaicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 460, Short.MAX_VALUE)
+        );
+
         jMenu1.setText("File");
 
         jMenuItem1.setText("Save Picture");
@@ -115,10 +132,13 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(114, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbl_title)
+                        .addGap(532, 532, 532))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btn_Load)
                         .addGap(39, 39, 39)
                         .addComponent(lbl_blocks)
@@ -129,20 +149,21 @@ public class MainWindow extends javax.swing.JFrame {
                         .addGap(87, 87, 87)
                         .addComponent(lbl_blocks2)
                         .addGap(18, 18, 18)
-                        .addComponent(tfd_blocksNew, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(140, 140, 140))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_title)
-                .addGap(532, 532, 532))
+                        .addComponent(tfd_blocksNew, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(315, 315, 315))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JPanelMosaic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(lbl_title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -152,9 +173,11 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_blocks2)
                         .addComponent(tfd_blocksNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JPanelMosaic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -182,8 +205,16 @@ public class MainWindow extends javax.swing.JFrame {
                         JPanelSource.setLayout(new FlowLayout());
                         
                         int columns = Integer.parseInt(tfd_row.getText());
-                        JPanelSource.add(new Panels(fileImage, rows, rows2));
+                        JPanelSource.add(new Panels(fileImage, rows));
                         JPanelSource.revalidate();
+                        
+                        
+                        if(flag){
+                            JPanelMosaic.setLayout(new FlowLayout());
+                        JPanelMosaic.add(new Panels(rows2));
+                        JPanelMosaic.revalidate();
+                        flag = false;
+                        }
                         
                     }else if(JFileChooser.CANCEL_OPTION == resultado){
                         JOptionPane.showMessageDialog(null, "Cancelled","",JOptionPane.OK_OPTION);
@@ -244,6 +275,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanelMosaic;
     private javax.swing.JPanel JPanelSource;
     private javax.swing.JButton btn_Load;
     private javax.swing.JMenu jMenu1;

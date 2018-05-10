@@ -78,14 +78,14 @@ public class Panels extends JPanel{
         }
     }
     
-    Panels(File file, int rowQuant, int columnQuant){
+    Panels(File file, int rowQuant){
        
         //setResizable(false);
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        add(new SourcePanel(), BorderLayout.WEST);
+        //add(new SourcePanel(), BorderLayout.WEST);
         add(new JToolBar.Separator(new Dimension(100, 500)), BorderLayout.CENTER);
-        add(new MosaicPanel(), BorderLayout.EAST);
+        add(new SourcePanel(), BorderLayout.EAST);
         
         //JButton btnSave= new JButton("Save");
         //btnSave.setMaximumSize(new Dimension(5, 5));
@@ -98,9 +98,36 @@ public class Panels extends JPanel{
 //        columnQuantity = columnQuant;
         rowQuantity = rowQuant;
         columnQuantity = rowQuant;
+        //rowQuantity2 = columnQuant;
+        //columnQuantity2 = columnQuant;
+        images = new BufferedImage[rowQuantity][columnQuantity];
+        //mosaicImages = new BufferedImage[rowQuantity2][columnQuantity2];
+    }
+    
+    //solo ingresa un sourcePanel
+        Panels(int columnQuant){
+       
+        //setResizable(false);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        add(new MosaicPanel(), BorderLayout.WEST);
+        add(new JToolBar.Separator(new Dimension(100, 500)), BorderLayout.CENTER);
+        //add(new MosaicPanel(), BorderLayout.EAST);
+        
+        //JButton btnSave= new JButton("Save");
+        //btnSave.setMaximumSize(new Dimension(5, 5));
+        //add(btnSave, BorderLayout.SOUTH);
+        
+        //pack();
+        //imagenPrincipal = ImageIO.read(getClass().getResourceAsStream("/assets/paisaje.jpg"));
+        //imageSource = file;
+//        rowQuantity = rowQuant;
+//        columnQuantity = columnQuant;
+        //rowQuantity = rowQuant;
+        //columnQuantity = rowQuant;
         rowQuantity2 = columnQuant;
         columnQuantity2 = columnQuant;
-        images = new BufferedImage[rowQuantity][columnQuantity];
+        //images = new BufferedImage[rowQuantity][columnQuantity];
         mosaicImages = new BufferedImage[rowQuantity2][columnQuantity2];
     }
     
@@ -235,6 +262,7 @@ public class Panels extends JPanel{
         }
     }//Fin panel1
     
+  
     //Panel vacio
     public class MosaicPanel extends JPanel implements MouseListener {
 
@@ -487,7 +515,7 @@ public class Panels extends JPanel{
             cellHeight = mosaicArray[0].getHeight();
 
             //Imagen final
-            BufferedImage finalImg = new BufferedImage(cellWidth * rowQuantity2, cellHeight * columnQuantity2, type);
+            BufferedImage finalImg = new BufferedImage(cellWidth * rowQuantity2, cellHeight * columnQuantity2, BufferedImage.TYPE_INT_ARGB);
             int num = 0;
             
             for (int i = 0; i < rowQuantity2; i++) {
