@@ -6,10 +6,14 @@
 package Interface;
 
 import ImageManipulation.UploadImage;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -25,6 +29,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
+        getContentPane().setBackground(new Color(180, 180, 180));
     }
 
     /**
@@ -39,10 +44,14 @@ public class MainWindow extends javax.swing.JFrame {
         JPanelSource = new javax.swing.JPanel();
         btn_Load = new javax.swing.JButton();
         tfd_row = new javax.swing.JTextField();
-        tfd_column = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        lbl_blocks = new javax.swing.JLabel();
+        tfd_blocksNew = new javax.swing.JTextField();
+        lbl_blocks2 = new javax.swing.JLabel();
+        lbl_title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MosaicMaker");
 
         JPanelSource.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -57,6 +66,9 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 460, Short.MAX_VALUE)
         );
 
+        btn_Load.setBackground(new java.awt.Color(102, 102, 255));
+        btn_Load.setFont(new java.awt.Font("Open Sans", 1, 11)); // NOI18N
+        btn_Load.setForeground(new java.awt.Color(204, 204, 204));
         btn_Load.setText("Load Picture");
         btn_Load.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -67,37 +79,63 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        lbl_blocks.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        lbl_blocks.setForeground(new java.awt.Color(102, 102, 255));
+        lbl_blocks.setText("Blocks to split");
+
+        lbl_blocks2.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        lbl_blocks2.setForeground(new java.awt.Color(102, 102, 255));
+        lbl_blocks2.setText("Blocks to split");
+
+        lbl_title.setFont(new java.awt.Font("Amatic", 1, 54)); // NOI18N
+        lbl_title.setForeground(new java.awt.Color(102, 102, 255));
+        lbl_title.setText("Mosaic Maker");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_Load)
-                        .addGap(41, 41, 41)
-                        .addComponent(tfd_row, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfd_column, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(263, 263, 263)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_Load)
+                                .addGap(39, 39, 39)
+                                .addComponent(lbl_blocks)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfd_row, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(276, 276, 276)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(87, 87, 87)
+                                .addComponent(lbl_blocks2)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfd_blocksNew, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(140, 140, 140))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbl_title)
+                        .addGap(532, 532, 532))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfd_column, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(lbl_title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btn_Load)
-                        .addComponent(tfd_row, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                        .addComponent(tfd_row, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_blocks))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_blocks2)
+                        .addComponent(tfd_blocksNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(JPanelSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(33, 33, 33))
         );
 
         pack();
@@ -105,47 +143,39 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void btn_LoadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_LoadMouseClicked
         // TODO add your handling code here:
-
-//        JPanelSource.removeAll();
-//        JPanelSource.setLayout(new FlowLayout());
-//        JPanelSource.add(new Paneles());
-//        JPanelSource.revalidate();
-        File fileImage;
-        ImageIcon image;
-        
-        int resultado;
-
-        UploadImage uploadWindow = new UploadImage();
-
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG y PNG", "jpg", "png");
-
-        uploadWindow.jFileChooser.setFileFilter(filtro);
-
-        resultado = uploadWindow.jFileChooser.showOpenDialog(null);
-
-        if (JFileChooser.APPROVE_OPTION == resultado) {
-
-            fileImage = uploadWindow.jFileChooser.getSelectedFile();
-
+//here eliminar tfd_column
             try {
-                JPanelSource.removeAll();
-                JPanelSource.setLayout(new FlowLayout());
-                int rows = Integer.parseInt(tfd_row.getText());
-                int columns = Integer.parseInt(tfd_column.getText());
-                JPanelSource.add(new Paneles(fileImage, rows, columns));
-                JPanelSource.revalidate();
-
-            } catch (Exception ex) {
-
+                if(tfd_row.getText().length()==0 || tfd_blocksNew.getText().length()==0){
+                    JOptionPane.showMessageDialog(null, "Fill the blocks to split field first","Error...", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    int rows = Integer.parseInt(tfd_row.getText());
+                    int rows2 = Integer.parseInt(tfd_blocksNew.getText());
+                    File fileImage;
+                    ImageIcon image;
+                    int resultado;
+                    UploadImage uploadWindow = new UploadImage();
+                    FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG y PNG", "jpg", "png");
+                    uploadWindow.jFileChooser.setFileFilter(filtro);
+                    resultado = uploadWindow.jFileChooser.showOpenDialog(null);
+                    if (JFileChooser.APPROVE_OPTION == resultado) {
+                        fileImage = uploadWindow.jFileChooser.getSelectedFile();
+                        JPanelSource.removeAll();
+                        JPanelSource.setLayout(new FlowLayout());
+                        
+                        int columns = Integer.parseInt(tfd_row.getText());
+                        JPanelSource.add(new Paneles(fileImage, rows, rows2));
+                        JPanelSource.revalidate();
+                        
+                    }else if(JFileChooser.CANCEL_OPTION == resultado){
+                        JOptionPane.showMessageDialog(null, "Cancelled","",JOptionPane.OK_OPTION);
+                    }
+                }
+            }catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Use only numbers in the field","Error...", JOptionPane.ERROR_MESSAGE);
+            }catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Error uploading image 1002 " + ex);
-
             }
-        } else if (JFileChooser.CANCEL_OPTION == resultado) {
-            JOptionPane.showMessageDialog(null, "Cancelled",
-                    "",
-                    JOptionPane.OK_OPTION);
-
-        }
+//^here
     }//GEN-LAST:event_btn_LoadMouseClicked
 
     /**
@@ -187,7 +217,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel JPanelSource;
     private javax.swing.JButton btn_Load;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField tfd_column;
+    private javax.swing.JLabel lbl_blocks;
+    private javax.swing.JLabel lbl_blocks2;
+    private javax.swing.JLabel lbl_title;
+    private javax.swing.JTextField tfd_blocksNew;
     private javax.swing.JTextField tfd_row;
     // End of variables declaration//GEN-END:variables
 }

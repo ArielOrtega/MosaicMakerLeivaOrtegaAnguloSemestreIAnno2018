@@ -26,16 +26,17 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class Paneles extends JPanel{
-    public int rowQuantity=5, columnQuantity=5, 
+    public int rowQuantity, columnQuantity, rowQuantity2, columnQuantity2, //here
             getSelectedX, getSelectedY, xSelected, ySelected, 
             widthPanel=500, heightPanel=500;
-    public Image imagenes[][] = new BufferedImage[rowQuantity][columnQuantity];
-    public Image imagenesMosaico[][] = new BufferedImage[rowQuantity][columnQuantity];
+    public Image imagenes[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
+    public Image imagenesMosaico[][]; //= new BufferedImage[rowQuantity][columnQuantity]; //here
     BufferedImage imagenPrincipal;
     File imageSource;
     
@@ -87,8 +88,11 @@ public class Paneles extends JPanel{
 //        rowQuantity = rowQuant;
 //        columnQuantity = columnQuant;
         rowQuantity = rowQuant;
-        columnQuantity = columnQuant;
+        columnQuantity = rowQuant;
+        rowQuantity2 = columnQuant;
+        columnQuantity2 = columnQuant;
         imagenes = new BufferedImage[rowQuantity][columnQuantity];
+        imagenesMosaico = new BufferedImage[rowQuantity2][columnQuantity2];
     }
     
     
@@ -105,12 +109,6 @@ public class Paneles extends JPanel{
             
         }
         
-//        public Panel1(File imageFile) {
-//            cells = new ArrayList<>(rowQuantity * columnQuantity);
-//            addMouseListener(this);
-//            setMaximumSize(new Dimension(widthPanel, heightPanel));
-//            imageSource = imageFile;
-//        }
 
         @Override
         public Dimension getPreferredSize() {
@@ -223,10 +221,11 @@ public class Paneles extends JPanel{
     //Panel vacio
     public class Panel2 extends JPanel implements MouseListener {
 
-        private final List<Rectangle> cells = new ArrayList<>(rowQuantity * columnQuantity);
+        private final List<Rectangle> cells = new ArrayList<>(rowQuantity2 * columnQuantity2); //here
         private JPopupMenu rightClickMenu = new JPopupMenu();
         private Graphics2D g2d;
         private int cellWidth = 0, cellHeight = 0;
+
         
         public Panel2() { 
             setBorder(new LineBorder(Color.BLACK));
@@ -272,22 +271,22 @@ public class Paneles extends JPanel{
             int width = getWidth();
             int height = getHeight();
 
-            for (int row = 0; row < rowQuantity; row++) {
-                for (int col = 0; col < columnQuantity; col++) {
+            for (int row = 0; row < rowQuantity2; row++) { //here
+                for (int col = 0; col < columnQuantity2; col++) { //here
 
-                    cellWidth = getWidth() / rowQuantity;
-                    cellHeight = getHeight() / columnQuantity;
+                    cellWidth = getWidth() / rowQuantity2;//here
+                    cellHeight = getHeight() / columnQuantity2;//here
 
                     //Creo una matriz
                     Rectangle cell = new Rectangle(
-                            row * (getWidth() / rowQuantity),
-                            col * (getHeight() / columnQuantity),
+                            row * (getWidth() / rowQuantity2),//here
+                            col * (getHeight() / columnQuantity2),//here
                             cellWidth,
                             cellHeight);
                     cells.add(cell);
                     
                     //Pinta las nuevas imagenes
-                    g2d.drawImage(imagenesMosaico[row][col], row * (width / rowQuantity), col * (height / columnQuantity), null);
+                    g2d.drawImage(imagenesMosaico[row][col], row * (width / rowQuantity2), col * (height / columnQuantity2),cellWidth,cellHeight, null); //here
                 }
                 
             }           
