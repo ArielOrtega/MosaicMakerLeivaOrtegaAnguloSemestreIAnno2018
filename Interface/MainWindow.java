@@ -182,7 +182,7 @@ public class MainWindow extends javax.swing.JFrame {
                         JPanelSource.setLayout(new FlowLayout());
                         
                         int columns = Integer.parseInt(tfd_row.getText());
-                        JPanelSource.add(new Paneles(fileImage, rows, rows2));
+                        JPanelSource.add(new Panels(fileImage, rows, rows2));
                         JPanelSource.revalidate();
                         
                     }else if(JFileChooser.CANCEL_OPTION == resultado){
@@ -201,7 +201,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            Paneles p = new Paneles();
+            Panels p = new Panels();
             p.saveAnImage();
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
